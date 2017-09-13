@@ -7,7 +7,7 @@
 # pset:         The specific week of problem sets you'r grading. E.g. 'crypto'
 #               Check cs50x.mprog.nl problem sets for all names.
 
-pset=$1
+pset=${1,,}
 if [ -z "$pset" ]
 then
     echo "Usage: './checker.sh \"pset\" \"student_name\"'"
