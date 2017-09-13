@@ -25,4 +25,8 @@ Checker.sh
 * Het 'pset' argument is vereist en moet één van de problem sets zijn zoals genoemd op cs50x.mprog.nl onder het kopje "other".
 * Het 'student_name' argument is optioneel. Als je die meegeeft worden de files van alleen die specifieke student gechecked. Het dient een geldig studentnummer te zijn.
 * Als je geen studentnummer meegeeft worden alle studenten gechecked. Je krijgt dan aan het begin van iedere test een kleine prompt of je verder wil gaan. Type een "y" als je verder wil, andere knoppen slaan die student over.
-*
+
+students.csv
+
+* Zet hier de studenten die je bent toegewezen.
+* Pas de placeholder values aan naar eigen inzicht. Spaties kunnen ook worden gebruikt in plaats van newlines.
