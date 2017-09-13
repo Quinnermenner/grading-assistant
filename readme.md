@@ -7,7 +7,8 @@ Requirements:
 ** Ik raad aan 'dropbox.py autostart' uit te voeren.
 * Je hebt een 'students.csv' bestand nodig in de folder waar je scripts in zitten. In deze csv moet een lijst staan met studentnummers. Gewoon spaties ertussen is voldoende.
 * Je moet de scripts chmodden. Voer "chmod u+x *.sh" in de folder met de scripts, dat moet voldoende zijn.
-* Het is handig de scripts in een handige folder te zetten. Dan blijft je workspace mooi schoon!
+* Zet de scripts in een handige folder; "Grading" bijvoorbeeld. Dan blijft je workspace mooi schoon!
+* Let erop dat dit een assistentie tool is. Je zal soms zelf moeten ingrijpen als een student iets raars heeft gedaan bij het inleveren.
 * That's it!! :)
 
 Extractor.sh
