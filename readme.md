@@ -3,8 +3,11 @@ Dit zijn twee scriptjes om het nakijken wat soepeler te laten verlopen.
 Requirements:
 
 * Je IDE moet zijn gelinked met je Dropbox waar je de submits in kan vinden. Volg hiervoor: https://c9.io/blog/dropbox-on-cloud9/. Let op dat je geen nieuwe workspace hoeft aan te maken als je niet wil.
+** Het kan zijn dat de dropbox command niet kan worden gevonden. Gebruik dan dropbox.py
+** Ik raad aan 'dropbox.py autostart' uit te voeren.
 * Je hebt een 'students.csv' bestand nodig in de folder waar je scripts in zitten. In deze csv moet een lijst staan met studentnummers. Gewoon spaties ertussen is voldoende.
 * Je moet de scripts chmodden. chmod u+x *.sh moet voldoende zijn.
+* Het is handig de scripts in een handige folder te zetten. Dan blijft je workspace mooi schoon!
 * That's it!! :)
 
 Extractor.sh
