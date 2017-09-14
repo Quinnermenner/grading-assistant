@@ -34,3 +34,10 @@ students.csv
 
 * Zet hier de studenten die je bent toegewezen.
 * Pas de placeholder values aan naar eigen inzicht. Spaties kunnen ook worden gebruikt in plaats van newlines.
+
+dropboxer.sh
+
+* Soms verliest dropbox connectie met je workspace als die opnieuw is opgestart, of uit hibernation komt.
+* Run altijd eerst 'dropbox.py start' om te kijken of er weer verbinding kan worden gevonden. Het kan zijn dat je hem moet onderbreken met ctrl+c als het te lang duurt.
+* Als je dan 'dropbox.py status' uitvoert zul je zien dat dropbox vastzit in "Starting..."
+* Gebruik dan droboxer.sh om opnieuw te verbinden met dropbox.
