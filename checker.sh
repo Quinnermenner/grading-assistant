@@ -47,6 +47,8 @@ case "$pset" in
     ;;
 "mashup") CHECKLIST=("not_implemented")
     ;;
+*) echo "That's not a valid pset!"; exit 1;
+    ;;
 esac
 
 clear
