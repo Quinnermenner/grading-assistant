@@ -8,6 +8,8 @@
 # pset:         The specific week of problem sets you'r grading. E.g. 'crypto'.
 #               Check cs50x.mprog.nl problem sets for all names.
 
+
+
 pset=${1,,}
 if [ -z "$pset" ]
 then
@@ -36,17 +38,69 @@ then
     exit 1
 fi
 
-tag=$pset"__"
+main () {
 
-for student in ${student_list[@]}
-do
-    printf "Copying : $student\n"
-    test -d $student/$pset || mkdir -p $student/$pset
-    for submit in `find ~/workspace/Dropbox/Prog17/$student/$tag* -type d`
+    echo "Prepping "$pset""
+    "$pset"_prep
+}
+
+function c_prep() {
+    return
+}
+
+function crypto_prep() {
+    return
+}
+
+function fifteen_prep() {
+    wget "https://github.com/cs50/problems/archive/find.zip"
+    unzip find.zip -d problems_find
+    rm -f find.zip
+    tar_dir=`find problems_find/* -type d`
+    for student in ${student_list[@]}
     do
-        cp $submit/* $student/$pset
+        printf "Copying : $student\n"
+        echo "placeholder" > $student/$pset/questions.txt
+        cp -nr $tar_dir/. $student/$pset
+        ( cd $student/$pset && make )
         chmod -R 755 $student/$pset
     done
-done
+    rm -rf problems_find
+    return
+}
 
-./prepper.sh $pset $stud_name
+function forensics_prep() {
+
+    wget "https://github.com/cs50/problems/archive/whodunit.zip"
+    unzip whodunit.zip -d problems_whodunit
+    rm -f whodunit.zip
+    tar_dir=`find problems_whodunit/* -type d`
+    for student in ${student_list[@]}
+    do
+        printf "Copying : $student\n"
+        cp -nr $tar_dir/. $student/$pset
+        make whodunit
+        ./whodunit clue.bmp verdict.bmp
+        chmod -R 755 $student/$pset
+    done
+    rm -rf problems_whodunit
+    return
+}
+
+function misspellings_prep() {
+    return
+}
+
+function sentimental_prep() {
+    return
+}
+
+function finance_prep() {
+    return
+}
+
+function mashup_prep() {
+    return
+}
+
+main "$@"

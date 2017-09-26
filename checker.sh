@@ -31,37 +31,56 @@ then
 fi
 
 case "$pset" in
-"c") CHECKLIST=("credit" "hello" "mario/more" "mario/less" "water" "greedy")
-    ;;
-"crypto") CHECKLIST=("initials/less" "initials/more" "caesar" "vigenere" "crack")
-    ;;
-"fifteen") CHECKLIST=("fifteen" "find/more" "find/less")
-    ;;
-"forensics") CHECKLIST=("resize/less" "resize/more" "recover")
-    ;;
-"misspellings") CHECKLIST=("speller")
-    ;;
-"sentimental") CHECKLIST=("not_implemented")
-    ;;
-"finance") CHECKLIST=("not_implemented")
-    ;;
-"mashup") CHECKLIST=("not_implemented")
-    ;;
-*) echo "That's not a valid pset!"; exit 1;
-    ;;
+    "c") CHECKLIST=("credit" "hello" "mario/more" "mario/less" "water" "greedy")
+        ;;
+    "crypto") CHECKLIST=("initials/less" "initials/more" "caesar" "vigenere" "crack")
+        ;;
+    "fifteen") CHECKLIST=("fifteen" "find/more" "find/less")
+        ;;
+    "forensics") CHECKLIST=("resize/less" "resize/more" "recover"); declare -A VALGRIND=( ["whodunit"]="./whodunit clue.bmp verdict.bmp" ["resize"]="./resize 4 small.bmp large.bmp" ["recover"]="./recover card.raw")
+        ;;
+    "misspellings") CHECKLIST=("speller")
+        ;;
+    "sentimental") CHECKLIST=("not_implemented")
+        ;;
+    "finance") CHECKLIST=("not_implemented")
+        ;;
+    "mashup") CHECKLIST=("not_implemented")
+        ;;
+    *) echo "That's not a valid pset!"; exit 1;
+        ;;
 esac
 
-clear
-for student in ${student_list[@]}
-do
-    read -p "Performing checks for $student. Y/N?" -n 1 -r
+main() {
     clear
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
+    for student in ${student_list[@]}
+    do
+        ( cd $student/$pset/ && echo -e "Student: $student" > results.txt )
         for problem in ${CHECKLIST[@]}
         do
-        printf "\nChecking: $student - $problem\n"
-        ( cd $student/$pset/ && check50 cs50/2017/x/$problem )
+            printf "Checking: $student - $problem\n"
+            ( cd $student/$pset/ &&
+            echo -e "\nCheck50: $problem" >> results.txt &&
+            check50 cs50/2017/x/$problem -l >> results.txt &&
+            echo -e "\n" >> results.txt )
         done
+
+        for problem in "${!VALGRIND[@]}"
+        do
+            valgrinder $problem $student
+        done
+    done
+}
+
+function valgrinder() {
+    problem=$1
+    student=$2
+    ( cd $student/$pset && make $problem 1> /dev/null &&
+    valgrind --leak-check=full --error-exitcode=1 "${VALGRIND[$problem]}" > /dev/null 2>&1 )
+    if [[ $? != 0 ]]
+    then
+        ( cd $student/$pset && valgrind --leak-check=full "${VALGRIND[$problem]}" 2> valgrind.txt )
     fi
-done
+}
+
+main "$@"

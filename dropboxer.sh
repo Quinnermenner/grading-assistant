@@ -2,7 +2,7 @@
 
 main() {
 
-    check_for_link
+    # check_for_link
     echo "Hey! Because of your workspace hibernating every now and then, sometimes dropbox will lose connection.
     It then gets stuck on 'starting' and will not update the dropbox files. To fix this you'll have to relink dropbox to your workspace."
     relink
