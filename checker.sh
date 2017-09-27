@@ -69,6 +69,7 @@ main() {
         do
             echo "Valgrinding: $problem"
             valgrinder $problem $student
+            cleaner $pset $student
         done
     done
 }
@@ -82,6 +83,33 @@ function valgrinder() {
     then
         ( cd $student/$pset && valgrind --leak-check=full ${VALGRIND[$problem]} 2> valgrind.txt )
     fi
+}
+
+function cleaner() {
+
+    pset=$1
+    student=$2
+    ( cd $student/$pset &&
+    case "$pset" in
+        "c")
+            ;;
+        "crypto")
+            ;;
+        "fifteen")
+            ;;
+        "forensics") rm -f *.jpg
+            ;;
+        "misspellings")
+            ;;
+        "sentimental")
+            ;;
+        "finance")
+            ;;
+        "mashup")
+            ;;
+        *) echo "That's not a valid pset!"; return;
+            ;;
+    esac )
 }
 
 main "$@"
