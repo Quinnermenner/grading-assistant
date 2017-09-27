@@ -3,8 +3,8 @@
 main() {
 
     # check_for_link
-    echo "Hey! Because of your workspace hibernating every now and then, sometimes dropbox will lose connection.
-    It then gets stuck on 'starting' and will not update the dropbox files. To fix this you'll have to relink dropbox to your workspace."
+    echo -e "Hey! Because of your workspace hibernating every now and then, sometimes dropbox will lose connection.
+    It then gets stuck on 'starting' and will not update the dropbox files. To fix this you'll have to relink dropbox to your workspace.\n"
     relink
 
 }
@@ -42,7 +42,8 @@ function relink() {
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
         then
-            echo "Will now relink to dropbox! Click the link in the terminal to authorize. Then come back and use ctrl+c to continue."
+            echo -e "Will now relink to dropbox! Click the link in the terminal to authorize. Then come back and use ctrl+c to continue.\n"
+            sleep 2
             trap restart INT
             dropbox.py stop
             sleep 1

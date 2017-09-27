@@ -72,17 +72,22 @@ function fifteen_prep() {
 function forensics_prep() {
 
     wget "https://github.com/cs50/problems/archive/whodunit.zip"
+    ( test -d /files_$pset || mkdir -p files_$pset &&
+    wget -O files_$pset/card.raw "http://cdn.cs50.net/2016/fall/psets/4/pset4/card.raw" )
+
     unzip whodunit.zip -d problems_whodunit
     rm -f whodunit.zip
     tar_dir=`find problems_whodunit/* -type d`
+
     for student in ${student_list[@]}
     do
         printf "Copying : $student\n"
         cp -nr $tar_dir/. $student/$pset
-        make whodunit
-        ./whodunit clue.bmp verdict.bmp
+        ( cd $student/$pset && make whodunit &&
+        ./whodunit clue.bmp verdict.bmp )
         chmod -R 755 $student/$pset
     done
+
     rm -rf problems_whodunit
     return
 }

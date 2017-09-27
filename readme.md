@@ -11,6 +11,15 @@ Requirements:
 * Let erop dat dit een assistentie tool is. Je zal soms zelf moeten ingrijpen als een student iets raars heeft gedaan bij het inleveren.
 * That's it!! :)
 
+Recommended usage:
+
+* Run 'dropbox.py status' om te kijken of je nog gelinked bent.
+* Run eventueel ./dropboxer.sh tot er een nieuwe link.
+* Run ./extractor.sh 'pset'
+* Run ./checker.sh 'pset'
+* Run ./grader.sh 'pset'
+* En je kunt nakijken! Jeej..
+
 Extractor.sh
 
 * Usage: './extractor.sh "pset" "student_name"'
@@ -29,15 +38,23 @@ Checker.sh
 * Het 'pset' argument is vereist en moet één van de problem sets zijn zoals genoemd op https://cs50x.mprog.nl onder het kopje "other".
 * Het 'student_name' argument is optioneel. Als je die meegeeft worden de files van alleen die specifieke student gechecked. Het dient een geldig studentnummer te zijn.
 * Als je geen studentnummer meegeeft worden alle studenten gechecked. Je krijgt dan aan het begin van iedere test een kleine prompt of je verder wil gaan. Type een "y" als je verder wil, andere knoppen slaan die student over.
+* Alle check50 & valgrind resultaten worden naar .txt bestanden geschreven.
+
+Preppers.sh
+
+* Wordt aangeroepen door checker. Hoef je in theorie niet zelf te runnen.
+* Zorgt dat alle extra files worden aangemaakt en runt make.
+
+Grader.sh
+
+* Leest de resultaten van check50 en valgrind netjes naar je terminal.
+* Je wordt per student geprompt of je die wil graden.
 
 students.csv
 
 * Zet hier de studenten die je bent toegewezen.
 * Pas de placeholder values aan naar eigen inzicht. Spaties kunnen ook worden gebruikt in plaats van newlines.
 
-dropboxer.sh
+Disclaimer:
 
-* Soms verliest dropbox connectie met je workspace als die opnieuw is opgestart, of uit hibernation komt.
-* Run altijd eerst 'dropbox.py start' om te kijken of er weer verbinding kan worden gevonden. Het kan zijn dat je hem moet onderbreken met ctrl+c als het te lang duurt.
-* Als je dan 'dropbox.py status' uitvoert zul je zien dat dropbox vastzit in "Starting..."
-* Gebruik dan droboxer.sh om opnieuw te verbinden met dropbox.
+* Geen garantei dat alles vlekkeloos werkt. Net als check50 zelf zijn de scripts een hulptool.

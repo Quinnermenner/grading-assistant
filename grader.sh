@@ -43,7 +43,7 @@ function cleanup() {
     student=$1
     ( cd $student/$pset/ &&
     cat results.txt &&
-    (test valgrind.txt && cat valgrind.txt))
+    (test -e valgrind.txt && cat valgrind.txt))
 
 }
 

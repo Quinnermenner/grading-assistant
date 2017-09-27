@@ -37,7 +37,7 @@ case "$pset" in
         ;;
     "fifteen") CHECKLIST=("fifteen" "find/more" "find/less")
         ;;
-    "forensics") CHECKLIST=("resize/less" "resize/more" "recover"); declare -A VALGRIND=( ["whodunit"]="./whodunit clue.bmp verdict.bmp" ["resize"]="./resize 4 small.bmp large.bmp" ["recover"]="./recover card.raw")
+    "forensics") CHECKLIST=("resize/less" "resize/more" "recover"); declare -A VALGRIND=( ["whodunit"]="./whodunit clue.bmp verdict.bmp" ["resize"]="./resize 4 small.bmp large.bmp" ["recover"]="./recover ../../files_forensics/card.raw")
         ;;
     "misspellings") CHECKLIST=("speller")
         ;;
@@ -67,6 +67,7 @@ main() {
 
         for problem in "${!VALGRIND[@]}"
         do
+            echo "Valgrinding: $problem"
             valgrinder $problem $student
         done
     done
@@ -76,10 +77,10 @@ function valgrinder() {
     problem=$1
     student=$2
     ( cd $student/$pset && make $problem 1> /dev/null &&
-    valgrind --leak-check=full --error-exitcode=1 "${VALGRIND[$problem]}" > /dev/null 2>&1 )
+    valgrind --leak-check=full --error-exitcode=1 ${VALGRIND[$problem]} > /dev/null 2>&1 )
     if [[ $? != 0 ]]
     then
-        ( cd $student/$pset && valgrind --leak-check=full "${VALGRIND[$problem]}" 2> valgrind.txt )
+        ( cd $student/$pset && valgrind --leak-check=full ${VALGRIND[$problem]} 2> valgrind.txt )
     fi
 }
 
