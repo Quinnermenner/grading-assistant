@@ -8,6 +8,27 @@ then
     exit 1
 fi
 
+case "$pset" in
+    "c") CHECKLIST=("credit.c" "hello.c" "mario.c" "water.c" "greedy.c")
+        ;;
+    "crypto") CHECKLIST=("initials.c" "caesar.c" "vigenere.c" "crack.c")
+        ;;
+    "fifteen") CHECKLIST=("fifteen.c" "find.c")
+        ;;
+    "forensics") CHECKLIST=("verdict.bmp" "whodunit.c" "resize.c" "recover.c")
+        ;;
+    "misspellings") CHECKLIST=("speller.c")
+        ;;
+    "sentimental") CHECKLIST=("not_implemented")
+        ;;
+    "finance") CHECKLIST=("not_implemented")
+        ;;
+    "mashup") CHECKLIST=("not_implemented")
+        ;;
+    *) echo "That's not a valid pset!"; exit 1;
+        ;;
+esac
+
 stud_name=$2
 if [ -z "$stud_name" ]
 then
@@ -32,19 +53,29 @@ main() {
             clear
             if [[ $REPLY =~ ^[Yy]$ ]]
             then
-                cleanup $student
+                grade $student
+                opener $student
             fi
         done
 
 }
 
-function cleanup() {
+function grade() {
 
     student=$1
     ( cd $student/$pset/ &&
     cat results.txt &&
     (test -e valgrind.txt && cat valgrind.txt))
 
+}
+
+function opener() {
+
+    student=$1
+    for file in ${CHECKLIST[@]}
+    do
+        ( cd $student/$pset && ( test -e $file && c9 open "$file" || echo "$file was not submitted.") )
+    done
 }
 
 main "$@"
