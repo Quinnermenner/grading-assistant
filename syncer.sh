@@ -16,6 +16,7 @@ sync_all() {
     ( cd ~/workspace/Dropbox && dropbox.py exclude add * && dropbox.py exclude remove Prog17 )
 
     while [[ $(dropbox.py status) != "Up to date" ]]; do
+        echo "Waiting for dropbox to finish updating..."
         sleep 5
     done
 
