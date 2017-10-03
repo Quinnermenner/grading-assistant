@@ -15,6 +15,8 @@ Recommended usage:
 
 * Run 'dropbox.py status' om te kijken of je nog gelinked bent.
 * Run eventueel ./dropboxer.sh tot er een nieuwe link.
+* Run ./syncer.sh
+* Run eventueel ./syncer.sh folder_naam als er bepaalde folders niet zijn weggehaald. Of rerun ./syncer.sh
 * Run ./extractor.sh 'pset'
 * Run ./checker.sh 'pset'
 * Run ./grader.sh 'pset'
@@ -49,6 +51,14 @@ Grader.sh
 
 * Leest de resultaten van check50 en valgrind netjes naar je terminal.
 * Je wordt per student geprompt of je die wil graden.
+
+Syncer.sh
+
+* Voert een selective sync uit op alle studenten uit je students.csv
+* Voorkomt het probleem dat je hele dropbox naar je ide wordt gekopieerd.
+* Zorgt ervoor dat er sneller wordt gesynct met dropbox!
+* Als je een directory meegeeft bv. "./syncer.sh folder_naam" dan wordt alleen die weggehaald.
+* Wil je een folder terug hebben? "dropbox.py exclude remove folder_naam"
 
 students.csv
 
