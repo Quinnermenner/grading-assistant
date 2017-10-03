@@ -15,8 +15,6 @@ Recommended usage:
 
 * Run 'dropbox.py status' om te kijken of je nog gelinked bent.
 * Run eventueel ./dropboxer.sh tot er een nieuwe link.
-* Run ./syncer.sh
-* Run eventueel ./syncer.sh folder_naam als er bepaalde folders niet zijn weggehaald. Of rerun ./syncer.sh
 * Run ./extractor.sh 'pset'
 * Run ./checker.sh 'pset'
 * Run ./grader.sh 'pset'
