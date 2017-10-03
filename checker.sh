@@ -39,7 +39,7 @@ case "$pset" in
         ;;
     "forensics") CHECKLIST=("resize/less" "resize/more" "recover"); declare -A VALGRIND=( ["whodunit"]="./whodunit clue.bmp verdict.bmp" ["resize"]="./resize 4 small.bmp large.bmp" ["recover"]="./recover ../../files_forensics/card.raw")
         ;;
-    "misspellings") CHECKLIST=("speller")
+    "misspellings") CHECKLIST=("speller"); declare -A VALGRIND=( ["speller"]="./speller texts/ralph.txt" )
         ;;
     "sentimental") CHECKLIST=("not_implemented")
         ;;
