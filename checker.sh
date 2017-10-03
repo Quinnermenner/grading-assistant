@@ -55,14 +55,13 @@ main() {
     clear
     for student in ${student_list[@]}
     do
-        ( cd $student/$pset/ && echo -e "Student: $student" > results.txt )
+        ( cd $student/$pset/ && echo -e "Student: $student" > results.txt && echo -e "Student: $student" > valgrind.txt)
         for problem in ${CHECKLIST[@]}
         do
             printf "Checking: $student - $problem\n"
             ( cd $student/$pset/ &&
-            echo -e "\nCheck50: $problem" >> results.txt &&
-            check50 cs50/2017/x/$problem -l >> results.txt &&
-            echo -e "\n" >> results.txt )
+            echo -e "\nCheck50: $student - $problem" >> results.txt &&
+            check50 cs50/2017/x/$problem >> results.txt )
         done
 
         for problem in "${!VALGRIND[@]}"
@@ -78,11 +77,11 @@ function valgrinder() {
     problem=$1
     student=$2
     ( cd $student/$pset && make $problem 1> /dev/null &&
-    valgrind --leak-check=full --error-exitcode=1 ${VALGRIND[$problem]} > /dev/null 2>&1 )
+    valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 ${VALGRIND[$problem]} > /dev/null 2>&1 &&
     if [[ $? != 0 ]]
     then
         ( cd $student/$pset && valgrind --leak-check=full ${VALGRIND[$problem]} 2> valgrind.txt )
-    fi
+    fi )
 }
 
 function cleaner() {

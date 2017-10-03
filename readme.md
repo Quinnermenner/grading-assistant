@@ -31,7 +31,7 @@ Extractor.sh
 
 Checker.sh
 
-* Usage: './checker50.sh "pset" "student_name"'
+* Usage: './checker.sh "pset" "student_name"'
 * Checker voert alle check50's uit voor de betreffende pset.
 * Dit betekent dat je af en toe een submit error krijgt, of een verschil ziet tussen de more en less comfortable opgaven.
 * Het is aan jou om uit te zoeken waar je wel en niet op moet letten.

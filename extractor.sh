@@ -28,6 +28,10 @@ then
     student_list=( $(cut -f2 students.csv ) )
 else
     student_list=("$stud_name")
+    ( cd ~/workspace/Dropbox && dropbox.py exclude remove Prog17/$stud_name )
+    while [[ $(dropbox.py status) != "Up to date" ]]; do
+        sleep 5
+    done
 fi
 
 if [ -z "$student_list" ]
