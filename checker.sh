@@ -77,11 +77,12 @@ function valgrinder() {
     problem=$1
     student=$2
     ( cd $student/$pset && make $problem 1> /dev/null &&
-    valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 ${VALGRIND[$problem]} > /dev/null 2>&1 &&
+    valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 ${VALGRIND[$problem]} > /dev/null 2>&1 )
     if [[ $? != 0 ]]
     then
+        echo $?
         ( cd $student/$pset && valgrind --leak-check=full ${VALGRIND[$problem]} 2> valgrind.txt )
-    fi )
+    fi
 }
 
 function cleaner() {
