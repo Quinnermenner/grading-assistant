@@ -61,7 +61,7 @@ main() {
             printf "Checking: $student - $problem\n"
             ( cd $student/$pset/ &&
             echo -e "\nCheck50: $student - $problem" >> results.txt &&
-            check50 cs50/2017/x/$problem >> results.txt )
+            check50 -l cs50/2017/x/$problem ${problem%/*}".c" >> results.txt )
         done
 
         for problem in "${!VALGRIND[@]}"
