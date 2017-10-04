@@ -59,9 +59,8 @@ main() {
         for problem in ${CHECKLIST[@]}
         do
             printf "Checking: $student - $problem\n"
-            ( cd $student/$pset/ &&
-            echo -e "\nCheck50: $student - $problem" >> results.txt &&
-            check50 -l cs50/2017/x/$problem ${problem%/*}".c" >> results.txt )
+            ( echo -e "\nCheck50: $student - $problem" >> $student/$pset/results.txt &&
+            check50 -l cs50/2017/x/$problem $student/$pset/${problem%/*}".c" >> $student/$pset/results.txt )
         done
 
         for problem in "${!VALGRIND[@]}"
@@ -80,7 +79,7 @@ function valgrinder() {
     valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 ${VALGRIND[$problem]} > /dev/null 2>&1 )
     if [[ $? != 0 ]]
     then
-        ( cd $student/$pset && valgrind --leak-check=full ${VALGRIND[$problem]} 2> valgrind.txt )
+        ( cd $student/$pset && valgrind --leak-check=full ${VALGRIND[$problem]} 2>> valgrind.txt )
     fi
 }
 
