@@ -30,6 +30,12 @@ else
     student_list=("$stud_name")
     ( cd ~/workspace/Dropbox && dropbox.py exclude remove Prog17/$stud_name )
     while [[ $(dropbox.py status) != "Up to date" ]]; do
+        if [[ $(dropbox.py status) == "Dropbox isn't running!" ]]
+        then
+            echo "Either run 'dropbox.py start'  or './dropboxer.sh' to reconnect."
+            exit
+        fi
+        dropbox.py status
         sleep 5
     done
 fi
