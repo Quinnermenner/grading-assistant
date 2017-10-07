@@ -18,7 +18,7 @@ then
     exit 1
 fi
 
-valid_psets=("c" "crypto" "fifteen" "forensics" "misspellings" "sentimental" "mashup" "finance")
+valid_psets=("c" "crypto" "fifteen" "forensics" "mispell" "sentimental" "mashup" "finance")
 if [[ " ${valid_psets[*]} " != *" $pset "* ]]; then
     echo "Oops. '$pset' is not a valid problem set!"
     exit 1
@@ -92,7 +92,21 @@ function forensics_prep() {
     return
 }
 
-function misspellings_prep() {
+function mispell_prep() {
+
+    wget "https://github.com/cs50/problems/archive/speller.zip"
+    unzip speller.zip -d problems_speller
+    rm -f speller.zip
+    tar_dir=`find problems_speller/* -type d`
+
+    for student in ${student_list[@]}
+    do
+        printf "Copying : $student\n"
+        cp -nr $tar_dir/. $student/$pset
+        chmod -R 755 $student/$pset
+    done
+
+    rm -rf problems_speller
     return
 }
 
