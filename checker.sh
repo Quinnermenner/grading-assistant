@@ -39,7 +39,7 @@ case "$pset" in
         ;;
     "forensics") CHECKLIST=("resize/less" "resize/more" "recover"); declare -A VALGRIND=( ["whodunit"]="./whodunit clue.bmp verdict.bmp" ["resize"]="./resize 4 small.bmp large.bmp" ["recover"]="./recover ../../files_forensics/card.raw")
         ;;
-    "misspellings") CHECKLIST=("speller"); declare -A VALGRIND=( ["speller"]="./speller texts/ralph.txt" )
+    "mispell") CHECKLIST=("speller"); declare -A VALGRIND=( ["speller"]="./speller texts/ralph.txt" )
         ;;
     "sentimental") CHECKLIST=("not_implemented")
         ;;
@@ -59,8 +59,8 @@ main() {
         for problem in ${CHECKLIST[@]}
         do
             printf "Checking: $student - $problem\n"
-            ( echo -e "\nCheck50: $student - $problem" >> $student/$pset/results.txt &&
-            check50 -l cs50/2017/x/$problem $student/$pset/${problem%/*}".c" >> $student/$pset/results.txt )
+            ( cd $student/$pset && echo -e "\nCheck50: $student - $problem" >> results.txt &&
+             check50 -l cs50/2017/x/$problem >> results.txt )
         done
 
         for problem in "${!VALGRIND[@]}"
@@ -97,7 +97,7 @@ function cleaner() {
             ;;
         "forensics") rm -f *.jpg
             ;;
-        "misspellings")
+        "mispell")
             ;;
         "sentimental")
             ;;
