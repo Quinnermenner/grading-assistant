@@ -97,7 +97,7 @@ function mispell_prep() {
     wget "https://github.com/cs50/problems/archive/speller.zip"
     unzip speller.zip -d problems_speller
     rm -f speller.zip
-    tar_dir=`find problems_speller/* -type d`
+    tar_dir=`find problems_speller/* -type d | head -n 1`
 
     for student in ${student_list[@]}
     do

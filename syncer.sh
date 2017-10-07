@@ -3,6 +3,7 @@
 dir=${1,,}
 
 main() {
+    echo $dir
     if [ -z "$dir" ]
         then
             sync_all
