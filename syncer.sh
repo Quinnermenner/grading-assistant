@@ -1,9 +1,8 @@
 #! /bin/bash
 
-dir=${1,,}
+dir=$1
 
 main() {
-    echo $dir
     if [ -z "$dir" ]
         then
             sync_all
@@ -35,3 +34,5 @@ sync_dir() {
 
     ( cd ~/workspace/Dropbox && dropbox.py exclude add $dir )
 }
+
+main "$@"
