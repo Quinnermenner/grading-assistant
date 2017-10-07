@@ -16,7 +16,7 @@ then
     exit 1
 fi
 
-valid_psets=("c" "crypto" "fifteen" "forensics" "misspellings" "sentimental" "mashup" "finance")
+valid_psets=("c" "crypto" "fifteen" "forensics" "mispellings" "sentimental" "mashup" "finance")
 if [[ " ${valid_psets[*]} " != *" $pset "* ]]; then
     echo "Oops. '$pset' is not a valid problem set!"
     exit 1
