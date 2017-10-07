@@ -17,7 +17,7 @@ case "$pset" in
         ;;
     "forensics") CHECKLIST=("verdict.bmp" "whodunit.c" "resize.c" "recover.c")
         ;;
-    "mispell") CHECKLIST=("speller.c")
+    "mispell") CHECKLIST=("speller.c" "dictionary.c" "dictionary.h")
         ;;
     "sentimental") CHECKLIST=("not_implemented")
         ;;
