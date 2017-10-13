@@ -1,4 +1,4 @@
-Dit zijn twee scriptjes om het nakijken wat soepeler te laten verlopen.
+Dit zijn een aantal scriptjes om het nakijken wat soepeler te laten verlopen.
 
 Requirements:
 
@@ -33,11 +33,12 @@ Checker.sh
 
 * Usage: './checker.sh "pset" "student_name"'
 * Checker voert alle check50's uit voor de betreffende pset.
+* Voert valgrinds uit voor de relevante opdrachten.
 * Dit betekent dat je af en toe een submit error krijgt, of een verschil ziet tussen de more en less comfortable opgaven.
 * Het is aan jou om uit te zoeken waar je wel en niet op moet letten.
 * Het 'pset' argument is vereist en moet één van de problem sets zijn zoals genoemd op https://cs50x.mprog.nl onder het kopje "other".
 * Het 'student_name' argument is optioneel. Als je die meegeeft worden de files van alleen die specifieke student gechecked. Het dient een geldig studentnummer te zijn.
-* Als je geen studentnummer meegeeft worden alle studenten gechecked. Je krijgt dan aan het begin van iedere test een kleine prompt of je verder wil gaan. Type een "y" als je verder wil, andere knoppen slaan die student over.
+* Als je geen studentnummer meegeeft worden alle studenten gechecked.
 * Alle check50 & valgrind resultaten worden naar .txt bestanden geschreven.
 
 Preppers.sh
@@ -65,4 +66,4 @@ students.csv
 
 Disclaimer:
 
-* Geen garantei dat alles vlekkeloos werkt. Net als check50 zelf zijn de scripts een hulptool.
+* Geen garantie dat alles vlekkeloos werkt. Net als check50 zelf zijn de scripts een hulptool.

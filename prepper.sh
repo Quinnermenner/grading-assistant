@@ -111,6 +111,14 @@ function mispell_prep() {
 }
 
 function sentimental_prep() {
+
+    for student in ${student_list[@]}
+    do
+        ( cd $student/$pset && unzip -o pset6.zip && rm -f pset6.zip )
+        ( cd $student/$pset/pset6 && mv * ../ )
+        ( cd $student/$pset && rmdir pset6 )
+
+    done
     return
 }
 
