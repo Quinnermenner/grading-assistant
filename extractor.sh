@@ -30,9 +30,19 @@ else
     student_list=("$stud_name")
 fi
 
+ex_list=($(dropbox.py exclude list))
 for student in ${student_list[@]}
-    do
-    ( cd ~/workspace/Dropbox && dropbox.py exclude remove Prog17/$student )
+do
+    check=0
+    for line in "${ex_list[@]}"; do
+        if [[ "${line##*/}" == $student ]]; then
+            $check=1
+            break
+        fi
+    done
+    if [ "$check" -eq "1" ]; then
+        ( cd ~/workspace/Dropbox && dropbox.py exclude remove Prog17/$student )
+    fi
 done
 
 while [[ $(dropbox.py status) != "Up to date" ]]; do
