@@ -67,3 +67,7 @@ students.csv
 Disclaimer:
 
 * Geen garantie dat alles vlekkeloos werkt. Net als check50 zelf zijn de scripts een hulptool.
+
+Special thanks:
+
+* Bart v. Baal
