@@ -68,21 +68,21 @@ main() {
         ( cd $student/$pset/ && echo -e "Student: $student" > results.txt && echo -e "Student: $student" > valgrind.txt)
         for submit in `find $student/$pset -maxdepth 1 -type f`
         do
-        problem="$(cut -d'/' -f3<<<"$(cut -d'.' -f1 <<<"$submit")")"
-        if array_contains CHECKLIST $problem
-        then
-            if [[ $(array_contains LESS_MORE $problem) && "$check_func" == "check50er" ]]
+            problem="$(cut -d'/' -f3<<<"$(cut -d'.' -f1 <<<"$submit")")"
+            if array_contains CHECKLIST $problem
             then
-                for flag in "${LM_FLAG[@]}"
-                do
+                if array_contains LESS_MORE $problem && [[ "$check_func" == "check50er" ]]
+                then
+                    for flag in "${LM_FLAG[@]}"
+                    do
+                        echo "Checking: $student - $problem"
+                        $check_func "$problem/$flag" $student
+                    done
+                else
                     echo "Checking: $student - $problem"
-                    $check_func "$problem/$flag" $student
-                done
-            else
-                echo "Checking: $student - $problem"
-                $check_func $problem $student
+                    $check_func $problem $student
+                fi
             fi
-        fi
         done
 
         for problem in "${!VALGRIND[@]}"
@@ -153,12 +153,19 @@ array_contains () {
     local seeking=$2
     local in=1
     for element in "${!array}"; do
-        if [[ "$element" == "$seeking" ]]; then
+        if [[ $element == $seeking ]]; then
             in=0
             break
         fi
     done
     return $in
+}
+
+array_contains2 () {
+    local e
+    local array="${@}"
+    for e in "${array[@]}"; do [[ "$e" == "$2" ]] && echo 1; done
+    echo 0
 }
 
 main "$@"
