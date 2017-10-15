@@ -66,7 +66,7 @@ main() {
     for student in ${student_list[@]}
     do
         ( cd $student/$pset/ && echo -e "Student: $student" > results.txt && echo -e "Student: $student" > valgrind.txt)
-        for submit in `find $student/$pset -maxdepth 1 -type f`
+        for submit in `find $student/$pset/*.* -maxdepth 1 -type f`
         do
             problem="$(cut -d'/' -f3<<<"$(cut -d'.' -f1 <<<"$submit")")"
             if array_contains CHECKLIST $problem
@@ -75,7 +75,7 @@ main() {
                 then
                     for flag in "${LM_FLAG[@]}"
                     do
-                        echo "Checking: $student - $problem"
+                        echo "Checking: $student - $problem/$flag"
                         $check_func "$problem/$flag" $student
                     done
                 else
