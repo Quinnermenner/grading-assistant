@@ -31,17 +31,17 @@ then
 fi
 
 case "$pset" in
-    "c") CHECKLIST=("credit" "hello" "mario/more" "mario/less" "water" "greedy")
+    "c") CHECKLIST=("credit" "hello" "mario" "water" "greedy")
         ;;
-    "crypto") CHECKLIST=("initials/less" "initials/more" "caesar" "vigenere" "crack")
+    "crypto") CHECKLIST=("initials" "caesar" "vigenere" "crack")
         ;;
-    "fifteen") CHECKLIST=("fifteen" "find/more" "find/less")
+    "fifteen") CHECKLIST=("fifteen" "find")
         ;;
-    "forensics") CHECKLIST=("resize/less" "resize/more" "recover"); declare -A VALGRIND=( ["whodunit"]="./whodunit clue.bmp verdict.bmp" ["resize"]="./resize 4 small.bmp large.bmp" ["recover"]="./recover ../../files_forensics/card.raw")
+    "forensics") CHECKLIST=("resize" "recover"); declare -A VALGRIND=( ["whodunit"]="./whodunit clue.bmp verdict.bmp" ["resize"]="./resize 4 small.bmp large.bmp" ["recover"]="./recover ../../files_forensics/card.raw")
         ;;
     "mispell") CHECKLIST=("speller"); declare -A VALGRIND=( ["speller"]="./speller texts/ralph.txt" )
         ;;
-    "sentimental") CHECKLIST=("not_implemented")
+    "sentimental") CHECKLIST=("mario" "caesar" "credit" "greedy" "vigenere" "crack" "smile" "tweets")
         ;;
     "finance") CHECKLIST=("not_implemented")
         ;;
@@ -51,16 +51,38 @@ case "$pset" in
         ;;
 esac
 
+case "$pset" in
+    "sentimental") check_func="checkpyer"; source twitter_keys
+        ;;
+    *) check_func="check50er"
+        ;;
+esac
+
+LESS_MORE=("mario" "initials" "find" "resize")
+LM_FLAG=("less" "more")
+
 main() {
     clear
     for student in ${student_list[@]}
     do
         ( cd $student/$pset/ && echo -e "Student: $student" > results.txt && echo -e "Student: $student" > valgrind.txt)
-        for problem in ${CHECKLIST[@]}
+        for submit in `find $student/$pset -maxdepth 1 -type f`
         do
-            printf "Checking: $student - $problem\n"
-            ( cd $student/$pset && echo -e "\nCheck50: $student - $problem" >> results.txt &&
-             check50 -l cs50/2017/x/$problem >> results.txt )
+        problem="$(cut -d'/' -f3<<<"$(cut -d'.' -f1 <<<"$submit")")"
+        if array_contains CHECKLIST $problem
+        then
+            if [[ $(array_contains LESS_MORE $problem) && "$check_func" == "check50er" ]]
+            then
+                for flag in "${LM_FLAG[@]}"
+                do
+                    echo "Checking: $student - $problem"
+                    $check_func "$problem/$flag" $student
+                done
+            else
+                echo "Checking: $student - $problem"
+                $check_func $problem $student
+            fi
+        fi
         done
 
         for problem in "${!VALGRIND[@]}"
@@ -73,8 +95,8 @@ main() {
 }
 
 function valgrinder() {
-    problem=$1
-    student=$2
+    local problem="$1"
+    local student="$2"
     ( cd $student/$pset && make $problem 1> /dev/null &&
     valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 ${VALGRIND[$problem]} > /dev/null 2>&1 )
     if [[ $? != 0 ]]
@@ -83,10 +105,26 @@ function valgrinder() {
     fi
 }
 
+function check50er() {
+
+    local problem="$1"
+    local student="$2"
+    ( cd $student/$pset && echo -e "\nCheck50: $student - $problem" >> results.txt &&
+      check50 -l cs50/2017/x/$problem >> results.txt )
+}
+
+function checkpyer() {
+
+    local problem="$1"
+    local student="$2"
+    ( cd $student/$pset && echo -e "\nCheck50: $student - $problem" >> results.txt)
+    ./check50py.sh $problem $student $pset >> $student/$pset/results.txt 2>&1
+}
+
 function cleaner() {
 
-    pset=$1
-    student=$2
+    local pset="$1"
+    local student="$2"
     ( cd $student/$pset &&
     case "$pset" in
         "c")
@@ -108,6 +146,19 @@ function cleaner() {
         *) echo "That's not a valid pset!"; return;
             ;;
     esac )
+}
+
+array_contains () {
+    local array="$1[@]"
+    local seeking=$2
+    local in=1
+    for element in "${!array}"; do
+        if [[ "$element" == "$seeking" ]]; then
+            in=0
+            break
+        fi
+    done
+    return $in
 }
 
 main "$@"

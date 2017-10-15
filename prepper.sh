@@ -116,9 +116,20 @@ function sentimental_prep() {
     do
         ( cd $student/$pset && unzip -o pset6.zip && rm -f pset6.zip )
         ( cd $student/$pset/pset6 && mv * ../ )
-        ( cd $student/$pset && rmdir pset6 )
+        ( cd $student/$pset && rm -rf pset6 &&
+        mkdir templates &&
+        cp *.html templates/ &&
+        rm -f *.html && rm -rf sentiments)
+
 
     done
+
+    read -p "Set twitter api keys? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || return
+
+    read -p "What is your twitter api key?" api_key
+    read -p "What is your twitter api secret?" api_secret
+    echo -e "export API_KEY=$api_key\nexport API_SECRET=$api_secret" > twitter_keys
+
     return
 }
 

@@ -19,7 +19,7 @@ case "$pset" in
         ;;
     "mispell") CHECKLIST=("speller.c" "dictionary.c" "dictionary.h")
         ;;
-    "sentimental") CHECKLIST=("not_implemented")
+    "sentimental") CHECKLIST=("caesar.py" "credit.py" "mario.py" "crack.py" "greedy.py" "vigenere.py" "tweets" "smile" "analyzer.py" "application.py" "helpers.py")
         ;;
     "finance") CHECKLIST=("not_implemented")
         ;;
