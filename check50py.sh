@@ -58,7 +58,7 @@ check_crack() {
         argv="$(cut -d'/' -f3 <<<"$args")"
         ( cd $student/$pset && echo "Testing input: $input & argv: $argv" &&
           echo "Output should be: $output" &&
-          (python $problem.py $argv))
+          (timeout 10 python $problem.py $argv))
         echo
     done
 

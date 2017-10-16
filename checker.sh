@@ -31,17 +31,17 @@ then
 fi
 
 case "$pset" in
-    "c") CHECKLIST=("credit" "hello" "mario" "water" "greedy")
+    "c") CHECKLIST=("credit.c" "hello.c" "mario.c" "water.c" "greedy.c")
         ;;
-    "crypto") CHECKLIST=("initials" "caesar" "vigenere" "crack")
+    "crypto") CHECKLIST=("initials.c" "caesar.c" "vigenere.c" "crack.c")
         ;;
-    "fifteen") CHECKLIST=("fifteen" "find")
+    "fifteen") CHECKLIST=("fifteen.c" "find.c")
         ;;
-    "forensics") CHECKLIST=("resize" "recover"); declare -A VALGRIND=( ["whodunit"]="./whodunit clue.bmp verdict.bmp" ["resize"]="./resize 4 small.bmp large.bmp" ["recover"]="./recover ../../files_forensics/card.raw")
+    "forensics") CHECKLIST=("resize.c" "recover.c"); declare -A VALGRIND=( ["whodunit"]="./whodunit clue.bmp verdict.bmp" ["resize"]="./resize 4 small.bmp large.bmp" ["recover"]="./recover ../../files_forensics/card.raw")
         ;;
-    "mispell") CHECKLIST=("speller"); declare -A VALGRIND=( ["speller"]="./speller texts/ralph.txt" )
+    "mispell") CHECKLIST=("speller.c"); declare -A VALGRIND=( ["speller"]="./speller texts/ralph.txt" )
         ;;
-    "sentimental") CHECKLIST=("mario" "caesar" "credit" "greedy" "vigenere" "crack" "smile" "tweets")
+    "sentimental") CHECKLIST=("mario.py" "caesar.py" "credit.py" "greedy.py" "vigenere.py" "crack.py" "smile" "tweets")
         ;;
     "finance") CHECKLIST=("not_implemented")
         ;;
@@ -66,11 +66,12 @@ main() {
     for student in ${student_list[@]}
     do
         ( cd $student/$pset/ && echo -e "Student: $student" > results.txt && echo -e "Student: $student" > valgrind.txt)
-        for submit in `find $student/$pset/*.* -maxdepth 1 -type f`
+        for submit in `find $student/$pset/ -maxdepth 1 -type f`
         do
-            problem="$(cut -d'/' -f3<<<"$(cut -d'.' -f1 <<<"$submit")")"
-            if array_contains CHECKLIST $problem
+            submit_cleaned="$(cut -d'/' -f3<<<"$submit")"
+            if array_contains CHECKLIST $submit_cleaned
             then
+                problem="$(cut -d'.' -f1<<<"$submit_cleaned")"
                 if array_contains LESS_MORE $problem && [[ "$check_func" == "check50er" ]]
                 then
                     for flag in "${LM_FLAG[@]}"
@@ -163,9 +164,9 @@ array_contains () {
 
 array_contains2 () {
     local e
-    local array="${@}"
-    for e in "${array[@]}"; do [[ "$e" == "$2" ]] && echo 1; done
-    echo 0
+    local array=("$@")
+    for e in "${array[@]}"; do [[ "$e" == "$2" ]] && return 1; done
+    return 0
 }
 
 main "$@"
