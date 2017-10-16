@@ -54,23 +54,24 @@ check_smile() {
 check_crack() {
 
     for args in ${arguments[@]}; do
+        input="$(cut -d'/' -f1 <<<"$args")"
         output="$(cut -d'/' -f2 <<<"$args")"
         argv="$(cut -d'/' -f3 <<<"$args")"
         ( cd $student/$pset && echo "Testing input: $input & argv: $argv" &&
           echo "Output should be: $output" &&
-          (timeout 10 python $problem.py $argv))
+          (echo $input | python $problem.py $argv))
         echo
     done
 
     ( cd $student/$pset && echo "Testing input: $input & argv: $argv" &&
     echo "Output should be: Usage-error" &&
-    python $problem.py 10 20)
+    echo "10 20" | python $problem.py "10" "20")
 
     echo
 
     ( cd $student/$pset && echo "Testing input: $input & argv: $argv" &&
     echo "Output should be: Usage-error" &&
-    python $problem.py)
+    echo " " | python $problem.py)
 
     echo
 
