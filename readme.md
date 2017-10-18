@@ -50,6 +50,7 @@ Grader.sh
 
 * Leest de resultaten van check50 en valgrind netjes naar je terminal.
 * Je wordt per student geprompt of je die wil graden.
+* Gebruik de -o flag voor de andere arguments om automatisch de files van studenten te openen.
 
 Syncer.sh
 
@@ -58,6 +59,10 @@ Syncer.sh
 * Zorgt ervoor dat er sneller wordt gesynct met dropbox!
 * Als je een directory meegeeft bv. "./syncer.sh folder_naam" dan wordt alleen die weggehaald.
 * Wil je een folder terug hebben? "dropbox.py exclude remove folder_naam"
+*
+Check50py.sh
+
+* Doet checks gelijk aan check50 voor de python scripts.
 
 students.csv
 
