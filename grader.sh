@@ -1,6 +1,26 @@
 #! /bin/bash
 
-pset=${1,,}
+argcount=1
+open_files=false
+while getopts "o" opt; do
+  case $opt in
+    o)
+      open_files=true
+      ((argcount++))
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+pset=${!argcount,,}
+((argcount++))
 if [ -z "$pset" ]
 then
     echo "Usage: './checker.sh \"pset\" \"student_name\"'"
@@ -29,7 +49,8 @@ case "$pset" in
         ;;
 esac
 
-stud_name=$2
+stud_name=${!argcount}
+((argcount++))
 if [ -z "$stud_name" ]
 then
     student_list=( $(cut -f2 students.csv ) )
@@ -44,7 +65,6 @@ then
     exit 1
 fi
 
-
 main() {
 
     for student in ${student_list[@]}
@@ -54,7 +74,7 @@ main() {
             if [[ $REPLY =~ ^[Yy]$ ]]
             then
                 grade $student
-                opener $student
+                if [ "$open_files" = true ]; then opener $student; fi
             fi
         done
 
