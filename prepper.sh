@@ -117,7 +117,7 @@ function sentimental_prep() {
         ( cd $student/$pset && unzip -o pset6.zip && rm -f pset6.zip )
         ( cd $student/$pset/pset6 && mv * ../ )
         ( cd $student/$pset && rm -rf pset6 &&
-        mkdir templates &&
+        mkdir -p templates &&
         cp *.html templates/ &&
         rm -f *.html && rm -rf sentiments)
 
@@ -134,6 +134,12 @@ function sentimental_prep() {
 }
 
 function finance_prep() {
+
+    for student in ${student_list[@]}
+    do
+        ( cd $student/$pset && mkdir -p templates && mkdir -p static &&
+          mv *.html templates && mv styles.css static && rm -f pset7.zip )
+    done
     return
 }
 

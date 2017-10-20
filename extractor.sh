@@ -72,6 +72,6 @@ do
         cp $submit/* $student/$pset
         chmod -R 755 $student/$pset
     done
+    ./prepper.sh $pset $student
 done
 
-./prepper.sh $pset $stud_name
