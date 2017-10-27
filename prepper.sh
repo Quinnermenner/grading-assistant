@@ -159,12 +159,10 @@ function mashup_prep() {
         rm -f *.zip
     done
 
-    if [ $prepped = false ]; then
-        read -p "Set Google api key? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || return
+    read -p "Set Google api key? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || return
 
-        read -p "What is your api key?" api_key
-        echo -e "export API_KEY=$api_key" > google_keys
-    fi
+    read -p "What is your api key?" api_key
+    echo -e "export API_KEY=$api_key" > google_keys
     return
 }
 
