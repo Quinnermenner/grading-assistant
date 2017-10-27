@@ -69,13 +69,14 @@ main() {
 
     for student in ${student_list[@]}
         do
-            read -p "Ready to grade $student. Y/N?" -n 1 -r
+            # read -p "Ready to grade $student. Y/N?" -n 1 -r
+            read -p "Ready to grade $student? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || break
             clear
-            if [[ $REPLY =~ ^[Yy]$ ]]
-            then
+            # if [[ $REPLY =~ ^[Yy]$ ]]
+            # then
                 grade $student
                 if [ "$open_files" = true ]; then opener $student; fi
-            fi
+            # fi
         done
 
 }

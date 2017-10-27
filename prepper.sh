@@ -144,6 +144,25 @@ function finance_prep() {
 }
 
 function mashup_prep() {
+
+    for student in ${student_list[@]}
+    do
+        cd $student/$pset
+        mkdir -p templates
+        mkdir -p static
+        unzip -j *.zip
+        mv *.gif static
+        mv scripts.js static
+        mv *.png static
+        mv *.html templates
+        mv styles.css static
+        rm -f *.zip
+    done
+
+    read -p "Set Google api key? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || return
+
+    read -p "What is your api key?" api_key
+    echo -e "export API_KEY=$api_key" > google_keys
     return
 }
 

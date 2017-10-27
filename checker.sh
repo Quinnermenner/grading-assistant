@@ -43,9 +43,9 @@ case "$pset" in
         ;;
     "sentimental") CHECKLIST=("mario.py" "caesar.py" "credit.py" "greedy.py" "vigenere.py" "crack.py" "smile" "tweets")
         ;;
-    "finance") CHECKLIST=("not_implemented")
+    "finance") CHECKLIST=("application.py")
         ;;
-    "mashup") CHECKLIST=("not_implemented")
+    "mashup") CHECKLIST=("application.py")
         ;;
     *) echo "That's not a valid pset!"; exit 1;
         ;;
@@ -53,6 +53,10 @@ esac
 
 case "$pset" in
     "sentimental") check_func="checkpyer"; source twitter_keys
+        ;;
+    "finance") check_func="checkflask"; source google_keys
+        ;;
+    "mashup") check_func="checkflask";
         ;;
     *) check_func="check50er"
         ;;
@@ -62,10 +66,11 @@ LESS_MORE=("mario" "initials" "find" "resize")
 LM_FLAG=("less" "more")
 
 main() {
+
     clear
     for student in ${student_list[@]}
     do
-        ( cd $student/$pset/ && echo -e "Student: $student" > results.txt && echo -e "Student: $student" > valgrind.txt)
+        ( cd $student/$pset/ && echo -e "Student: $student" > results.txt && echo -e "Student: $student" > valgrind.txt )
         for submit in `find $student/$pset/ -maxdepth 1 -type f`
         do
             submit_cleaned="$(cut -d'/' -f3<<<"$submit")"
@@ -120,6 +125,26 @@ function checkpyer() {
     local student="$2"
     ( cd $student/$pset && echo -e "\nCheck50: $student - $problem" >> results.txt)
     ./check50py.sh $problem $student $pset >> $student/$pset/results.txt 2>&1
+}
+
+checked_flask=0
+function checkflask() {
+
+    local problem="$1"
+    local student="$2"
+
+   if [ $checked_flask -eq 0 ]; then
+        mkdir -p files_$pset
+        echo " " > files_$pset/application.py
+        read -p "Open up a terminal with files_$pset as the root directory. Enter 'flask run' but don't open up the site just yet.
+        Don't worry about any errors! Press enter to continue. "
+        ((checked_flask++))
+    fi
+
+    read -p "Ready to check $student? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || return
+    ( cd $student/$pset && echo -e "\nCheck50: $student - $problem" >> results.txt)
+
+    ./checkflask.sh $problem $student $pset >> $student/$pset/results.txt
 }
 
 function cleaner() {

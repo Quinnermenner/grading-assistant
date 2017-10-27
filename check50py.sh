@@ -15,7 +15,7 @@ case "$problem" in
     ;;
     "credit") ext=".py"; arguments=("378282246310005/AMEX" "371449635398431/AMEX" "5555555555554444/MASTERCARD" "5105105105105100/MASTERCARD" "4111111111111111/VISA" "4012888888881881/VISA" "1234567890/INVALID" "foo/Rejection" "/Rejection")
     ;;
-    "crack") ext=".py"; arguments=("50fkUxYHbnXGw/rofl" "50i2t3sOSAZtk/lol" "50.jPgLzVirkc/hi" "10\n20/Usage-error/10\n20" "/Usage-error/")
+    "crack") ext=".py"; arguments=("50fkUxYHbnXGw/rofl/50fkUxYHbnXGw" "50i2t3sOSAZtk/lol/50i2t3sOSAZtk" "50.jPgLzVirkc/hi/50.jPgLzVirkc" "10\n20/Usage-error/10\n20" "/Usage-error/")
     ;;
     "smile") ext=""; arguments=("/:)/love" "/:(/hate" "/:|/bart")
     ;;
