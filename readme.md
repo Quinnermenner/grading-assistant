@@ -2,9 +2,15 @@ Dit zijn een aantal scriptjes om het nakijken wat soepeler te laten verlopen.
 
 Requirements:
 
-* Je IDE moet zijn gelinked met je Dropbox waar je de submits in kan vinden. Volg hiervoor: https://c9.io/blog/dropbox-on-cloud9/. Let op dat je geen nieuwe workspace hoeft aan te maken als je niet wil.
-** Het kan zijn dat de dropbox command niet kan worden gevonden. Gebruik dan dropbox.py
-** Ik raad aan 'dropbox.py autostart' uit te voeren.
+* Je IDE moet zijn gelinked met je Dropbox waar je de submits in kan vinden. Volg hiervoor: Volg https://www.youtube.com/watch?v=YxokaFPOcOg met de volgende commands (met dank aan Kim de Bie):
+  1. cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf –
+  2. ~/.dropbox-dist/dropboxd
+  3. ln -s /home/ubuntu/Dropbox/ ~/workspace/
+  4. cd ~/ && wget https://linux.dropbox.com/packages/dropbox.py
+  5. chmod +x dropbox.py
+  6. cd /bin && sudo ln -s ~/dropbox.py
+  7. dropbox start
+  8. (Als regel 6/7 niet werken) ~/dropbox.py start
 * Je hebt een 'students.csv' bestand nodig in de folder waar je scripts in zitten. In deze csv moet een lijst staan met studentnummers. Gewoon spaties ertussen is voldoende.
 * Je moet de scripts chmodden. Voer "chmod u+x *.sh" in de folder met de scripts, dat moet voldoende zijn.
 * Zet de scripts in een handige folder; "Grading" bijvoorbeeld. Dan blijft je workspace mooi schoon!
